@@ -1,6 +1,7 @@
 var name;
 var socket = io.connect("http://localhost:5000");
 var roomID;
+var totalNumMsg = 0;
 
 $('#create').on('click', () => {
     name = $('#name').val();
@@ -53,6 +54,28 @@ $('#send').on('click', () => {
     $('#message').val('');
 });
 
+$('#message').keypress(function (e) {
+    if (e.which == 13) {
+        var msg = $('#message').val();
+
+        if(!msg) {
+            alert('Please include a message.');
+            return;
+        }
+    
+        socket.emit('sendMessage', {
+            name: name,
+            message: msg,
+            room: roomID
+        });
+        
+        printMessage(name, msg);
+    
+        $('#message').val('');
+      return false;    //<---- Add this line
+    }
+  });
+
 socket.on('newRoom', (data) => {
     roomID = data.room;
     $('#roomLabel').text(roomID);
@@ -71,13 +94,16 @@ socket.on('recMessage', (data) => {
 
 function printMessage(name, msg)
 {
+    totalNumMsg += 1;
     $('#chatList').append(`<li class='border mt-1 mr-1'> 
                                 <div> 
-                                    <label>${name}</label>
+                                    <label id="name${totalNumMsg}"></label>
                                     <br>
-                                    <label>${msg}</label>
+                                    <label id="msg${totalNumMsg}"></label>
                                 </div> 
                            </li>`);
 
-    $('#chats').animate({scrollTop:$(document).height()}, 'slow');
+    $(`#name${totalNumMsg}`).text(name);
+    $(`#msg${totalNumMsg}`).text(msg);
+    $('#chats').animate({scrollTop:$('#chatList').height()}, 'slow');
 }
