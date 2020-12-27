@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat Server</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="col-sm d-xl-block d-xs-none"></div>
+        
+            <div class="col-sm ">
+                <div id="entryForm">
+                    <legend>Create a Chat Room</legend>
+                    <div class="form-group col">
+                        <label>Name:</label>
+                        <input type="text" class="form-control m-2" id="name" placeholder="Enter your name">
+                        <button class="btn-primary" id="create">Create</button>
+                    </div>
+        
+                    <legend>Join a Chat Room</legend>
+                    <div class="form-group col">
+                        <label>Name:</label>
+                        <input type="text" class="form-control m-2" id="name2" placeholder="Enter your name">
+                        <label>Room ID:</label>
+                        <input type="text" class="form-control m-2" id="room" placeholder="Enter room ID">
+                        <button class="btn-primary" id="join">Join</button>
+                    </div>
+                </div>
+                
+                <div id="chatRoom" style="display:none">
+                    <h1 id="roomLabel"></h1>
+                    <div id="chats" class="border m-5" style="overflow: scroll; height: 75vh;">
+                        <ul id="chatList">
+                        </ul>
+                    </div>
+
+                    <div id="sendChats" class="border m-5 p-3">
+                        <input type="text" id="message" placeholder="Enter message">
+                        <button class="btn-primary" id="send">Send</button>
+                    </div>
+                </div>
+
+            </div>
+        
+            <div class="col-sm d-xl-block d-xs-none"></div>
+        </div>
+        
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>	
+  </body>
+</html>
