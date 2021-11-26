@@ -19,7 +19,7 @@ $('#create').on('click', () => {
 });
 
 $('#join').on('click', () => {
-    name = $('#name2').val();
+    name = $('#nameJoin').val();
     roomID = $('#room').val();
 
     if(!name || !roomID) {
